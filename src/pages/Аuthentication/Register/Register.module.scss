@@ -1,0 +1,22 @@
+.register_block{
+    display: flex;
+    flex-direction: column;
+    color: rgb(212, 191, 191);
+    .text_field{
+        margin-top: 15px;
+    border-color: rgb(107, 38, 38);
+    color: rgb(129, 84, 24);
+    input{
+        color: white;
+    }   
+        }
+    .text_slyle{
+        margin: 15px 0px 25px 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+    }
+        
+    .button{
+        margin-top: 20px;
+    }
+    }
