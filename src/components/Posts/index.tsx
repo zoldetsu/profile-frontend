@@ -6,19 +6,9 @@ import PostItem from "../PostItem";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 
 import { fetchAddPost, fetchPosts } from "../../redux/slices/Posts";
+import { TPost } from "../../types/TypesPost";
 
-interface IUser {
-  fullName: string;
-  avatarUrl: string;
-}
 
-export interface IItem {
-  user: IUser;
-  fullName: string;
-  createdAt: string;
-  text: string;
-  userId: string;
-}
 
 export default function Posts() {
   const dispatch = useAppDispatch();
@@ -66,7 +56,7 @@ export default function Posts() {
       >
         Добавить пост
       </Button>
-      {items.map((item: IItem) => {
+      {items.map((item: TPost) => {
         return <PostItem item={item} />;
       })}
     </div>

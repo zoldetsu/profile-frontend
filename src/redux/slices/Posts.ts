@@ -1,10 +1,23 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../axios.ts";
+import { TPost, TText } from "../../types/TypesPost.ts";
 
-const initialState = {
+
+interface IItem {
+  onePost: {
+    status: string;
+    items: TPost | null;
+  };
+  allPosts: {
+    status: string;
+    items: TPost[];
+  };
+}
+
+const initialState: IItem = {
   onePost: {
     status: "loading",
-    items: [],
+    items: null,
   },
   allPosts: {
     status: "loading",
@@ -12,19 +25,26 @@ const initialState = {
   },
 };
 
-interface IPost {
-  text: string;
-}
+export const fetchPosts = createAsyncThunk<TPost[]>(
+  "posts/fetchPosts",
+  async () => {
+    const { data } = await axios.get("/api/post/getposts");
+    return data;
+  }
+);
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const { data } = await axios.get("/api/post/getposts");
-  return data;
-});
-
-export const fetchAddPost = createAsyncThunk(
+export const fetchAddPost = createAsyncThunk<TPost, TText>(
   "posts/fetchAddPost",
-  async (arrText: IPost) => {
-    const { data } = await axios.post("/api/post/addpost", arrText);
+  async (text) => {
+    const { data } = await axios.post("/api/post/addpost", {text});
+    return data;
+  }
+);
+
+export const fetchDeletePost = createAsyncThunk(
+  "posts/fetchDeletePost",
+  async (id: string) => {
+    const { data } = await axios.delete(`/api/post/deletepost/${id}`);
     return data;
   }
 );
@@ -50,19 +70,32 @@ const PostsSlice = createSlice({
     });
 
     builder.addCase(fetchAddPost.pending, (state) => {
-      state.onePost.items = [];
+      state.onePost.items = null;
       state.onePost.status = "loading";
     });
 
-    builder.addCase(fetchAddPost.fulfilled, (state, action) => {
-      state.allPosts.items.unshift(action.payload);
-      state.onePost.status = "loaded";
-    });
+    builder.addCase(
+      fetchAddPost.fulfilled,
+      (state, action) => {
+        state.allPosts.items.unshift(action.payload);
+
+        state.onePost.status = "loaded";
+      }
+    );
 
     builder.addCase(fetchAddPost.rejected, (state) => {
-      state.onePost.items = [];
+      state.onePost.items = null;
       state.onePost.status = "loading";
     });
+
+    builder.addCase(
+      fetchDeletePost.fulfilled,
+      (state, action: PayloadAction<TPost>) => {
+        state.allPosts.items = state.allPosts.items.filter(
+          (obj) => obj.id !== action.meta.arg
+        );
+      }
+    );
   },
 });
 

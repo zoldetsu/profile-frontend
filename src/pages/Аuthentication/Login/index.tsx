@@ -20,7 +20,8 @@ export default function Login() {
     if (!data.payload) {
       return alert("не удалось войти");
     }
-    if ("token" in data.payload) {
+    if (data) {
+      // * нужно поработать с типизацией
       window.localStorage.setItem("token", data.payload.token);
     }
   };

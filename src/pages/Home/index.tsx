@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/Auth";
 import { Navigate } from "react-router-dom";
-import { Button } from "@mui/material";
 import Posts from "../../components/Posts";
 import "../../App.css";
 import classes from "./Home.module.scss";
