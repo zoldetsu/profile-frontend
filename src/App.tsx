@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Аuthentication from "./pages/Аuthentication";
 import Home from "./pages/Home";
 import { useEffect } from "react";
 import { useAppDispatch } from "./redux/store";
 import { fetchAuthMe } from "./redux/slices/Auth";
+import FullPost from "./pages/FullPost";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/posts/:id" element={<FullPost />} />
         <Route path="/auth" element={<Аuthentication />} />
       </Routes>
     </>

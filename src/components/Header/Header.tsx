@@ -3,14 +3,14 @@ import classes from "./Header.module.scss";
 import Button from "@mui/material/Button";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LogoutIcon from "@mui/icons-material/Logout";
-import "../App.css";
+import "../../App.css";
 import { grey, yellow } from "@mui/material/colors";
 import { IconButton } from "@mui/material";
 import { useSelector } from "react-redux";
-import { logout, selectIsAuth } from "../redux/slices/Auth";
-import { useAppDispatch } from "../redux/store";
-export default function Header() {
+import { useAppDispatch } from "../../redux/store";
+import { logout, selectIsAuth } from "../../redux/slices/Auth";
 
+export default function Header() {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
   const ClickFunc = async () => {

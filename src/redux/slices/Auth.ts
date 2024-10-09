@@ -1,17 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axios.js";
 import { TUser } from "../../types/TypesPost.js";
-
-interface IRegisterParams {
-  fullName: string;
-  email: string;
-  password: string;
-}
-
-interface ILoginParams {
-  email: string;
-  password: string;
-}
+import { IRegisterParams, ILoginParams } from "../../types/TypesAuth.js";
 
 interface IState {
   data: TUser | null;
@@ -26,22 +16,34 @@ const initialState: IState = {
 export const fetchRegister = createAsyncThunk<TUser, IRegisterParams>(
   "auth/fetchRegister",
   async (params) => {
-    const { data } = await axios.post("/api/user/register", params);
-    return data;
+    try {
+      const { data } = await axios.post("/api/user/register", params);
+      return data;
+    } catch (error) {
+      return "Ошибка при регистрации";
+    }
   }
 );
 
 export const fetchLogin = createAsyncThunk<TUser, ILoginParams>(
   "auth/fetchLogin",
   async (params) => {
-    const { data } = await axios.post("/api/user/login", params);
-    return data;
+    try {
+      const { data } = await axios.post("/api/user/login", params);
+      return data;
+    } catch (error) {
+      return "Ошибка при входе";
+    }
   }
 );
 
 export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
-  const { data } = await axios.get("/api/user/me");
-  return data;
+  try {
+    const { data } = await axios.get("/api/user/me");
+    return data;
+  } catch (error) {
+    return "Ошибка при авторизации";
+  }
 });
 
 const authSlice = createSlice({

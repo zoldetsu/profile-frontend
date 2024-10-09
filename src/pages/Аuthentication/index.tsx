@@ -5,7 +5,7 @@ import Register from "./Register";
 
 import { useEffect, useState } from "react";
 import Login from "./Login";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/Auth";
 export default function Аuthentication() {

@@ -4,6 +4,7 @@ import classes from "./Login.module.scss";
 
 import { useAppDispatch } from "../../../redux/store";
 import { fetchLogin } from "../../../redux/slices/Auth";
+import { TUser } from "../../../types/TypesPost";
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -15,12 +16,12 @@ export default function Login() {
       email,
       password,
     };
-    const data = await dispatch(fetchLogin(values));
-
+    const data = (await dispatch(fetchLogin(values))) as { payload: TUser };
+    console.log(data);
     if (!data.payload) {
       return alert("не удалось войти");
     }
-    if (data) {
+    if (data.payload) {
       // * нужно поработать с типизацией
       window.localStorage.setItem("token", data.payload.token);
     }

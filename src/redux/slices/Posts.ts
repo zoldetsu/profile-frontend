@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../axios.ts";
 import { TPost, TText } from "../../types/TypesPost.ts";
 
-
 interface IItem {
   onePost: {
     status: string;
@@ -28,24 +27,36 @@ const initialState: IItem = {
 export const fetchPosts = createAsyncThunk<TPost[]>(
   "posts/fetchPosts",
   async () => {
-    const { data } = await axios.get("/api/post/getposts");
-    return data;
+    try {
+      const { data } = await axios.get("/api/post/getposts");
+      return data;
+    } catch (error) {
+      return console.log(error);
+    }
   }
 );
 
 export const fetchAddPost = createAsyncThunk<TPost, TText>(
   "posts/fetchAddPost",
   async (text) => {
-    const { data } = await axios.post("/api/post/addpost", {text});
-    return data;
+    try {
+      const { data } = await axios.post("/api/post/addpost", text);
+      return data;
+    } catch (error) {
+      return console.log(error);
+    }
   }
 );
 
 export const fetchDeletePost = createAsyncThunk(
   "posts/fetchDeletePost",
   async (id: string) => {
-    const { data } = await axios.delete(`/api/post/deletepost/${id}`);
-    return data;
+    try {
+      const { data } = await axios.delete(`/api/post/deletepost/${id}`);
+      return data;
+    } catch (error) {
+      return console.log(error);
+    }
   }
 );
 
@@ -74,14 +85,11 @@ const PostsSlice = createSlice({
       state.onePost.status = "loading";
     });
 
-    builder.addCase(
-      fetchAddPost.fulfilled,
-      (state, action) => {
-        state.allPosts.items.unshift(action.payload);
+    builder.addCase(fetchAddPost.fulfilled, (state, action) => {
+      state.allPosts.items.unshift(action.payload);
 
-        state.onePost.status = "loaded";
-      }
-    );
+      state.onePost.status = "loaded";
+    });
 
     builder.addCase(fetchAddPost.rejected, (state) => {
       state.onePost.items = null;

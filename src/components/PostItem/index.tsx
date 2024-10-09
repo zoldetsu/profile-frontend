@@ -5,6 +5,7 @@ import { grey } from "@mui/material/colors";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchDeletePost } from "../../redux/slices/Posts";
 import { TPost } from "../../types/TypesPost";
+import { Link } from "react-router-dom";
 
 interface PostItemProps {
   item: TPost;
@@ -12,14 +13,17 @@ interface PostItemProps {
 
 export default function PostItem({ item }: PostItemProps) {
   const dispatch = useAppDispatch();
+
+  const date = new Date(item.createdAt);
+  const formattedDate = date.toLocaleString();
   const { data } = useAppSelector((state: RootState) => state.auth);
+
+  const isVerif = data && item.userId === data.id;
+  console.log(data);
   const deleteClick = async () => {
     dispatch(fetchDeletePost(item.id));
   };
-  const isVerif = data && item.userId === data.id;
-  const date = new Date(item.createdAt);
-  const formattedDate = date.toLocaleString();
-  console.log(data);
+
   return (
     <div className={classes.post_block}>
       {isVerif && (
@@ -42,7 +46,9 @@ export default function PostItem({ item }: PostItemProps) {
       <div className={classes.text}>{item.text}</div>
       <div className={classes.activity_block}>
         <FavoriteBorder />
-        <Comment />
+        <Link to={`/posts/${item.id}`}>
+          <Comment />
+        </Link>
       </div>
     </div>
   );

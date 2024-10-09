@@ -8,8 +8,6 @@ import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchAddPost, fetchPosts } from "../../redux/slices/Posts";
 import { TPost } from "../../types/TypesPost";
 
-
-
 export default function Posts() {
   const dispatch = useAppDispatch();
   const [text, setText] = useState("");

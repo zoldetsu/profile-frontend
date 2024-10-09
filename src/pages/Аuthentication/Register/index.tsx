@@ -4,6 +4,7 @@ import { grey } from "@mui/material/colors";
 import { useAppDispatch } from "../../../redux/store";
 import { useState } from "react";
 import { fetchRegister } from "../../../redux/slices/Auth";
+import { TUser } from "../../../types/TypesPost";
 
 export default function Register() {
   const dispatch = useAppDispatch();
@@ -17,7 +18,8 @@ export default function Register() {
       email,
       password,
     };
-    const data = await dispatch(fetchRegister(values));
+    const data = (await dispatch(fetchRegister(values))) as { payload: TUser };
+    console.log(data);
 
     if (!data.payload) {
       return alert("не удалось зарегистрироваться");
@@ -69,7 +71,7 @@ export default function Register() {
         id="standard-textarea"
         label="Email"
         variant="filled"
-        value={password}
+        value={email}
         onChange={(e) => {
           setPassword(e.target.value);
         }}
@@ -91,7 +93,7 @@ export default function Register() {
         id="standard-textarea"
         label="Password"
         variant="filled"
-        value={email}
+        value={password}
         onChange={(e) => {
           setEmail(e.target.value);
         }}
