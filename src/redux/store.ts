@@ -2,9 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./slices/Auth";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { postsReducer } from "./slices/Posts";
+import { commentReducer } from "./slices/Comments";
 
 export const store = configureStore({
-  reducer: { auth: authReducer, posts: postsReducer },
+  reducer: { auth: authReducer, posts: postsReducer, comment: commentReducer },
 });
 export type RootState = ReturnType<typeof store.getState>;
 

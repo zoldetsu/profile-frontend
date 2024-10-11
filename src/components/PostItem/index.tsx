@@ -19,7 +19,7 @@ export default function PostItem({ item }: PostItemProps) {
   const { data } = useAppSelector((state: RootState) => state.auth);
 
   const isVerif = data && item.userId === data.id;
-  console.log(data);
+
   const deleteClick = async () => {
     dispatch(fetchDeletePost(item.id));
   };

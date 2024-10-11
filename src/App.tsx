@@ -6,7 +6,8 @@ import Home from "./pages/Home";
 import { useEffect } from "react";
 import { useAppDispatch } from "./redux/store";
 import { fetchAuthMe } from "./redux/slices/Auth";
-import FullPost from "./pages/FullPost";
+import FullPost from "./pages/PostPage";
+import PostPage from "./pages/PostPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/posts/:id" element={<FullPost />} />
+        <Route path="/posts/:id" element={<PostPage />} />
         <Route path="/auth" element={<Аuthentication />} />
       </Routes>
     </>

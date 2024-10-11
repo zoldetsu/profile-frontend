@@ -1,40 +1,51 @@
 import { useEffect, useState } from "react";
 import { TPost } from "../types/TypesPost";
-import { RootState, useAppSelector } from "../redux/store";
+import { RootState, useAppDispatch, useAppSelector } from "../redux/store";
 import axios from "../axios";
+import { fetchGetComments } from "../redux/slices/Comments";
+import { TComment } from "../types/TypesComment";
 
 interface ReturnType {
   isVerif: boolean | null;
   formattedDate: string;
-  dataUser: TPost | null;
+  dataPost: TPost | null;
+  items: TComment[];
 }
 
 export function useGetFullPost(id: string | undefined): ReturnType {
-  const [dataUser, setDataUser] = useState<TPost | null>(null);
+  const dispatch = useAppDispatch();
+  const [dataPost, setDataPost] = useState<TPost | null>(null);
   const { data } = useAppSelector((state: RootState) => state.auth);
+  const { items } = useAppSelector(
+    (state: RootState) => state.comment.allComment
+  );
 
   useEffect(() => {
     axios
       .get<TPost>(`/api/post/getone/${id}`)
       .then((res) => {
-        setDataUser(res.data);
+        setDataPost(res.data);
         console.log(res.data);
       })
       .catch((err) => {
         console.warn("rere", err);
         alert("ошибка при получении статьи");
       });
+    if (id) {
+      dispatch(fetchGetComments(id));
+    }
   }, [id]);
 
-  const isVerif = dataUser && data && dataUser.userId === data.id;
+  const isVerif = dataPost && data && dataPost.userId === data.id;
 
-  const formattedDate = dataUser
-    ? new Date(dataUser.createdAt).toLocaleString()
+  const formattedDate = dataPost
+    ? new Date(dataPost.createdAt).toLocaleString()
     : "";
 
   return {
     isVerif: isVerif || null,
     formattedDate,
-    dataUser,
+    dataPost,
+    items,
   };
 }

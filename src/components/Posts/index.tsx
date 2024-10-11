@@ -21,7 +21,6 @@ export default function Posts() {
       text,
     };
     await dispatch(fetchAddPost(arrText));
-
     setText("");
   };
 
