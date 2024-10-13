@@ -1,33 +1,33 @@
 import classes from "./PostItem.module.scss";
-import { Comment, Delete, FavoriteBorder } from "@mui/icons-material";
+import { Comment, Delete } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { grey } from "@mui/material/colors";
-import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
-import { fetchDeletePost } from "../../redux/slices/Posts";
+import { grey, red } from "@mui/material/colors";
+import { RootState, useAppSelector } from "../../redux/store";
+
 import { TPost } from "../../types/TypesPost";
 import { Link } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useLikes } from "../../hooks/useLikes";
 
 interface PostItemProps {
   item: TPost;
 }
 
 export default function PostItem({ item }: PostItemProps) {
-  const dispatch = useAppDispatch();
-
+  const { data: currentUser } = useAppSelector(
+    (state: RootState) => state.auth
+  );
   const date = new Date(item.createdAt);
   const formattedDate = date.toLocaleString();
-  const { data } = useAppSelector((state: RootState) => state.auth);
-
-  const isVerif = data && item.userId === data.id;
-
-  const deleteClick = async () => {
-    dispatch(fetchDeletePost(item.id));
-  };
-
+  const isVerif = currentUser && item.userId === currentUser.id;
+  const { like, countLike, deleteClickLike, clickLike } = useLikes(
+    item,
+    currentUser
+  );
   return (
-    <div className={classes.post_block}>
+    <div className={classes.post_box}>
       {isVerif && (
-        <IconButton className={classes.delete} onClick={deleteClick}>
+        <IconButton className={classes.delete} onClick={deleteClickLike}>
           <Delete
             style={{}}
             sx={{
@@ -45,10 +45,38 @@ export default function PostItem({ item }: PostItemProps) {
       </div>
       <div className={classes.text}>{item.text}</div>
       <div className={classes.activity_block}>
-        <FavoriteBorder />
-        <Link to={`/posts/${item.id}`}>
-          <Comment />
-        </Link>
+        <div style={{ display: "flex", marginLeft: "10px" }}>
+          <div
+            style={{
+              marginRight: "5px",
+              fontFamily: "monospace",
+              fontSize: "20px",
+            }}
+          >
+            {countLike}
+          </div>
+          <div onClick={clickLike}>
+            <FavoriteIcon
+              sx={{
+                color: like ? red[500] : grey[100],
+              }}
+            />
+          </div>
+        </div>
+        <div style={{ display: "flex", marginLeft: "10px" }}>
+          <div
+            style={{
+              marginRight: "5px",
+              fontFamily: "monospace",
+              fontSize: "20px",
+            }}
+          >
+            {item.createdComment.length}
+          </div>
+          <Link to={`/posts/${item.id}`}>
+            <Comment color="inherit" />
+          </Link>
+        </div>
       </div>
     </div>
   );

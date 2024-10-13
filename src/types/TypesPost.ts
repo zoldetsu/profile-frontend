@@ -1,9 +1,11 @@
+import { TLike } from "./TypesLike";
+
 export type TPost = {
   id: string;
   text: string;
   userId: string;
   createdAt: string;
-  likes: [];
+  likes: TLike[];
   createdComment: [];
   user: TUser;
   likedByUser: boolean;

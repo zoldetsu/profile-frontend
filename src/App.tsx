@@ -18,7 +18,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Аuthentication />} />
         <Route path="/home" element={<Home />} />
         <Route path="/posts/:id" element={<PostPage />} />
         <Route path="/auth" element={<Аuthentication />} />

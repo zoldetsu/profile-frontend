@@ -5,7 +5,7 @@ import Register from "./Register";
 
 import { useEffect, useState } from "react";
 import Login from "./Login";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/Auth";
 export default function Аuthentication() {
@@ -14,7 +14,7 @@ export default function Аuthentication() {
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuth) {
-      return navigate("/home");
+      navigate("/home");
     }
   }, [isAuth]);
   return (

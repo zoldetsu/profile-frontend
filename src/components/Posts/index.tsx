@@ -54,7 +54,7 @@ export default function Posts() {
         Добавить пост
       </Button>
       {items.map((item: TPost) => {
-        return <PostItem item={item} />;
+        return <PostItem key={item.id} item={item} />;
       })}
     </div>
   );

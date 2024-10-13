@@ -3,9 +3,15 @@ import { authReducer } from "./slices/Auth";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { postsReducer } from "./slices/Posts";
 import { commentReducer } from "./slices/Comments";
+import { likesReducer } from "./slices/Likes";
 
 export const store = configureStore({
-  reducer: { auth: authReducer, posts: postsReducer, comment: commentReducer },
+  reducer: {
+    auth: authReducer,
+    posts: postsReducer,
+    comment: commentReducer,
+    like: likesReducer,
+  },
 });
 export type RootState = ReturnType<typeof store.getState>;
 

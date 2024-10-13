@@ -1,25 +1,21 @@
-import { Delete, FavoriteBorder, Comment } from "@mui/icons-material";
-import { Button, IconButton, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import classes from "./FullPost.module.scss";
 import { useGetFullPost } from "../../hooks/FullPost";
 import { useParams } from "react-router-dom";
-import { fetchDeletePost } from "../../redux/slices/Posts";
-import { grey } from "@mui/material/colors";
 import { useAppDispatch } from "../../redux/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fetchAddComment } from "../../redux/slices/Comments";
 import CommentItem from "../CommentItem";
 import { TComment } from "../../types/TypesComment";
+
+import PostItem from "../PostItem";
+
 export default function FullPost() {
   const { id } = useParams();
-  const { isVerif, formattedDate, dataPost, items } = useGetFullPost(id);
+  const { dataPost, itemsComments } = useGetFullPost(id);
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
-  const deleteClick = async () => {
-    if (dataPost) {
-      dispatch(fetchDeletePost(dataPost.id));
-    }
-  };
+
   if (!dataPost) {
     return <div>Loading...</div>;
   }
@@ -31,33 +27,9 @@ export default function FullPost() {
     };
     dispatch(fetchAddComment(commentInfo));
   };
-  console.log(dataPost);
   return (
     <div className={classes.post_block}>
-      <div className={classes.block}>
-        {isVerif && (
-          <IconButton className={classes.delete} onClick={deleteClick}>
-            <Delete
-              style={{}}
-              sx={{
-                color: grey[50],
-              }}
-            />
-          </IconButton>
-        )}
-        <div className={classes.owner_block}>
-          <img src="/assets/settings.jpg" alt="Photo" />
-          <div className={classes.info_block}>
-            <div className={classes.name}>{dataPost.user.fullName}</div>
-            <div className={classes.data}> {formattedDate}</div>
-          </div>
-        </div>
-        <div className={classes.text}>{dataPost.text}</div>
-        <div className={classes.activity_block}>
-          <FavoriteBorder />
-          <Comment />
-        </div>
-      </div>
+      <PostItem item={dataPost} />
       <TextField
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -87,8 +59,8 @@ export default function FullPost() {
         Добавить комментарий
       </Button>
 
-      {items.map((comment: TComment) => {
-        return <CommentItem comment={comment} />;
+      {itemsComments.map((comment: TComment) => {
+        return <CommentItem key={comment.id} comment={comment} />;
       })}
     </div>
   );

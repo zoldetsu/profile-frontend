@@ -40,10 +40,9 @@ export const fetchLogin = createAsyncThunk<TUser, ILoginParams>(
 export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
   try {
     const { data } = await axios.get("/api/user/me");
+    console.log(data);
     return data;
-  } catch (error) {
-    return "Ошибка при авторизации";
-  }
+  } catch (error) {}
 });
 
 const authSlice = createSlice({
