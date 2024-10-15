@@ -5,13 +5,14 @@ import { useAppDispatch } from "../../../redux/store";
 import { useState } from "react";
 import { fetchRegister } from "../../../redux/slices/Auth";
 import { TUser } from "../../../types/TypesPost";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const dispatch = useAppDispatch();
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
+  const navigate = useNavigate();
   const SendClick = async () => {
     const values = {
       fullName,
@@ -26,6 +27,7 @@ export default function Register() {
     }
     if ("token" in data.payload) {
       window.localStorage.setItem("token", data.payload.token);
+      navigate("/home");
     }
   };
 
@@ -73,7 +75,7 @@ export default function Register() {
         variant="filled"
         value={email}
         onChange={(e) => {
-          setPassword(e.target.value);
+          setEmail(e.target.value);
         }}
       />
       <TextField
@@ -95,7 +97,7 @@ export default function Register() {
         variant="filled"
         value={password}
         onChange={(e) => {
-          setEmail(e.target.value);
+          setPassword(e.target.value);
         }}
       />
 

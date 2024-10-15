@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import classes from "./Header.module.scss";
 import Button from "@mui/material/Button";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -13,12 +13,12 @@ import { logout, selectIsAuth } from "../../redux/slices/Auth";
 export default function Header() {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
+  const navigate = useNavigate();
   const ClickFunc = async () => {
     if (isAuth) {
       dispatch(logout());
       window.localStorage.removeItem("token");
-    } else {
-      <Navigate to={"/auth"} />;
+      navigate("/auth");
     }
   };
   return (

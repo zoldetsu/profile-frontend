@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import { useEffect } from "react";
 import { useAppDispatch } from "./redux/store";
 import { fetchAuthMe } from "./redux/slices/Auth";
-import FullPost from "./pages/PostPage";
 import PostPage from "./pages/PostPage";
 
 function App() {

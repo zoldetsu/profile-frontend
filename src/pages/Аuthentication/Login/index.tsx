@@ -5,25 +5,26 @@ import classes from "./Login.module.scss";
 import { useAppDispatch } from "../../../redux/store";
 import { fetchLogin } from "../../../redux/slices/Auth";
 import { TUser } from "../../../types/TypesPost";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const dispatch = useAppDispatch();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
+  const navigate = useNavigate();
   const SendClick = async () => {
     const values = {
       email,
       password,
     };
     const data = (await dispatch(fetchLogin(values))) as { payload: TUser };
-    console.log(data);
     if (!data.payload) {
       return alert("не удалось войти");
     }
     if (data.payload) {
       // * нужно поработать с типизацией
       window.localStorage.setItem("token", data.payload.token);
+      navigate("/home");
     }
   };
   return (

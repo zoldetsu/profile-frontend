@@ -1,5 +1,4 @@
 import { TComment } from "./../../types/TypesComment";
-import { RootState } from "./../store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../axios.js";
 import { TAddComment } from "../../types/TypesComment.js";

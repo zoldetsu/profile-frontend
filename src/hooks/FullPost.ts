@@ -11,16 +11,21 @@ interface ReturnType {
   dataPost: TPost | null;
   itemsComments: TComment[];
   dataUser: TUser | null;
+  countComment: number;
+  setCountComment: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function useGetFullPost(id: string | undefined): ReturnType {
   const dispatch = useAppDispatch();
   const [dataPost, setDataPost] = useState<TPost | null>(null);
   const { data: dataUser } = useAppSelector((state: RootState) => state.auth);
+  const [countComment, setCountComment] = useState(
+    dataPost?.createdComment.length || 0
+  );
   const { items: itemsComments } = useAppSelector(
     (state: RootState) => state.comment.allComment
   );
-
+  console.log(countComment);
   useEffect(() => {
     axios
       .get<TPost>(`/api/post/getone/${id}`)
@@ -28,7 +33,7 @@ export function useGetFullPost(id: string | undefined): ReturnType {
         setDataPost(res.data);
       })
       .catch((err) => {
-        alert("ошибка при получении статьи");
+        alert("ошибка при получении ");
       });
     if (id) {
       dispatch(fetchGetComments(id));
@@ -47,5 +52,7 @@ export function useGetFullPost(id: string | undefined): ReturnType {
     dataPost,
     itemsComments: itemsComments,
     dataUser,
+    countComment,
+    setCountComment,
   };
 }

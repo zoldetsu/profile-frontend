@@ -1,3 +1,4 @@
+import { TComment } from "./TypesComment";
 import { TLike } from "./TypesLike";
 
 export type TPost = {
@@ -6,7 +7,7 @@ export type TPost = {
   userId: string;
   createdAt: string;
   likes: TLike[];
-  createdComment: [];
+  createdComment: TComment[];
   user: TUser;
   likedByUser: boolean;
 };

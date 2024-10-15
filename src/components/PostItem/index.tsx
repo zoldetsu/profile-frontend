@@ -11,6 +11,7 @@ import { useLikes } from "../../hooks/useLikes";
 
 interface PostItemProps {
   item: TPost;
+  countComment?: number;
 }
 
 export default function PostItem({ item }: PostItemProps) {
@@ -20,14 +21,14 @@ export default function PostItem({ item }: PostItemProps) {
   const date = new Date(item.createdAt);
   const formattedDate = date.toLocaleString();
   const isVerif = currentUser && item.userId === currentUser.id;
-  const { like, countLike, deleteClickLike, clickLike } = useLikes(
+  const { like, countLike, deleteClickPost, clickLike } = useLikes(
     item,
     currentUser
   );
   return (
     <div className={classes.post_box}>
       {isVerif && (
-        <IconButton className={classes.delete} onClick={deleteClickLike}>
+        <IconButton className={classes.delete} onClick={deleteClickPost}>
           <Delete
             style={{}}
             sx={{

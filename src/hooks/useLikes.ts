@@ -8,7 +8,7 @@ import { useAppDispatch } from "../redux/store";
 interface ReturnType {
   like: boolean;
   countLike: number;
-  deleteClickLike: () => Promise<void>;
+  deleteClickPost: () => Promise<void>;
   clickLike: () => Promise<void>;
 }
 
@@ -17,7 +17,7 @@ export function useLikes(item: TPost, currentUser: TUser | null): ReturnType {
   const [like, setLike] = useState<boolean>(item.likedByUser);
   const [countLike, setCountLike] = useState<number>(item.likes.length);
 
-  const deleteClickLike = async () => {
+  const deleteClickPost = async () => {
     await dispatch(fetchDeletePost(item.id));
   };
 
@@ -46,7 +46,7 @@ export function useLikes(item: TPost, currentUser: TUser | null): ReturnType {
   return {
     like,
     countLike,
-    deleteClickLike,
+    deleteClickPost,
     clickLike,
   };
 }
