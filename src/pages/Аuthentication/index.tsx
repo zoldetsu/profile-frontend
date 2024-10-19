@@ -1,11 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import "../../App.css";
 import classes from "./Auth.module.scss";
 import Register from "./Register";
-
-import { useEffect, useState } from "react";
 import Login from "./Login";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/Auth";
 export default function Аuthentication() {

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axios.js";
-import { TUser } from "../../types/TypesPost.js";
-import { IRegisterParams, ILoginParams } from "../../types/TypesAuth.js";
+import { IRegisterParams, ILoginParams, TUser } from "../../types/TypesAuth.js";
 
 interface IState {
   data: TUser | null;
@@ -40,7 +39,7 @@ export const fetchLogin = createAsyncThunk<TUser, ILoginParams>(
 export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
   try {
     const { data } = await axios.get("/api/user/me");
-    console.log(data);
+
     return data;
   } catch (error) {}
 });

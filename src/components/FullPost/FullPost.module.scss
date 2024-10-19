@@ -4,15 +4,11 @@
     align-items: center;
     
     .block{
-    
         position: relative;
-        
         background-color: rgb(43, 43, 43);
         border-radius: 10px;
         padding: 15px;
-        
-        
-        
+
         .delete{
             position: absolute;
             right: 0;
@@ -47,8 +43,7 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
             word-break: break-word;
-            white-space: normal;
-            
+            white-space: normal;      
         }
         .activity_block{
             margin-top: 15px;

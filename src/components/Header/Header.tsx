@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./Header.module.scss";
 import Button from "@mui/material/Button";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -14,6 +14,8 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
   const navigate = useNavigate();
+
+  //* --------------------------------------------------------------------
   const ClickFunc = async () => {
     if (isAuth) {
       dispatch(logout());
@@ -21,6 +23,7 @@ export default function Header() {
       navigate("/auth");
     }
   };
+  //* --------------------------------------------------------------------
   return (
     <header className="container">
       <div className={classes.header}>

@@ -4,27 +4,31 @@ import { grey } from "@mui/material/colors";
 import { useAppDispatch } from "../../../redux/store";
 import { useState } from "react";
 import { fetchRegister } from "../../../redux/slices/Auth";
-import { TUser } from "../../../types/TypesPost";
 import { useNavigate } from "react-router-dom";
+import { TUser } from "../../../types/TypesAuth";
 
 export default function Register() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  //* --------------------------------------------------------------------
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  //* --------------------------------------------------------------------
+
   const SendClick = async () => {
     const values = {
       fullName,
       email,
       password,
     };
+    //* Возвращает информацию о пользоавателе после регистрации
     const data = (await dispatch(fetchRegister(values))) as { payload: TUser };
-    console.log(data);
 
     if (!data.payload) {
       return alert("не удалось зарегистрироваться");
     }
+    //* берем токен и записываем в localStorage
     if ("token" in data.payload) {
       window.localStorage.setItem("token", data.payload.token);
       navigate("/home");

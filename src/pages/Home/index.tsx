@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/Auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Posts from "../../components/Posts";
 import "../../App.css";
 import classes from "./Home.module.scss";
@@ -11,6 +11,7 @@ import { useEffect } from "react";
 export default function Home() {
   const isAuth = useSelector(selectIsAuth);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!isAuth) {
       navigate("/auth");
@@ -21,7 +22,6 @@ export default function Home() {
     <div className="container">
       <div className={classes.home_box}>
         <Buttons />
-
         <Posts />
         <Profile />
       </div>

@@ -39,7 +39,10 @@ export default function CommentItem({ comment }: Icomment) {
         )}
 
         <div className={classes.owner_block}>
-          <img src="/assets/settings.jpg" alt="Photo" />
+          <img
+            src={`http://localhost:4000${comment.user.avatarUrl}`}
+            alt="Photo"
+          />
           <div className={classes.info_block}>
             <div className={classes.name}>{comment.user.fullName}</div>
             <div className={classes.data}> {formattedDate}</div>

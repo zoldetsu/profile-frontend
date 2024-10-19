@@ -20,7 +20,16 @@ export default function PostItem({ item }: PostItemProps) {
   );
   const date = new Date(item.createdAt);
   const formattedDate = date.toLocaleString();
+  //* проверка для удаления комментария авторизованным пользователем
   const isVerif = currentUser && item.userId === currentUser.id;
+  /* 
+  ? like - поставлен лайк или нет
+  ? countLike - количество лайков у поста
+  ? deleteClickPost - функция удаления поста понажитии иконки
+  ? clickLike - в зависимости от like убирает или ставит лайк
+  ? item - информация о посте
+  ? currentUser - информация об авторизованном пользователя
+  */
   const { like, countLike, deleteClickPost, clickLike } = useLikes(
     item,
     currentUser
@@ -38,7 +47,13 @@ export default function PostItem({ item }: PostItemProps) {
         </IconButton>
       )}
       <div className={classes.owner_block}>
-        <img src="/assets/settings.jpg" alt="Photo" />
+        <Link to={`/users/${item.user.id}`}>
+          <img
+            src={`http://localhost:4000${item.user.avatarUrl}`}
+            alt="Photo"
+          />
+        </Link>
+
         <div className={classes.info_block}>
           <div className={classes.name}>{item.user.fullName}</div>
           <div className={classes.data}> {formattedDate}</div>

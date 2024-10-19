@@ -1,7 +1,6 @@
-import { TComment } from "./../../types/TypesComment";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../axios.js";
-import { TAddComment } from "../../types/TypesComment.js";
+import { TAddComment, TComment } from "../../types/TypesComment.js";
 interface initialState {
   oneComment: {
     status: string;

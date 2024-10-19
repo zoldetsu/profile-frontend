@@ -2,8 +2,9 @@ import axios from "../axios.js";
 import { useState } from "react";
 import { fetchDeletePost } from "../redux/slices/Posts";
 import { fetchAddLike } from "../redux/slices/Likes";
-import { TPost, TUser } from "../types/TypesPost";
 import { useAppDispatch } from "../redux/store";
+import { TPost } from "../types/TypesPost.js";
+import { TUser } from "../types/TypesAuth.js";
 
 interface ReturnType {
   like: boolean;

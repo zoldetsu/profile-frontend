@@ -19,6 +19,8 @@ export default function FullPost() {
   if (!dataPost) {
     return <div>Loading...</div>;
   }
+  //* --------------------------------------------------------------------
+  //* добвление комеентария
   const addCommentClick = async () => {
     const postId = dataPost.id;
     const commentInfo = {
@@ -27,6 +29,7 @@ export default function FullPost() {
     };
     dispatch(fetchAddComment(commentInfo));
   };
+  //* --------------------------------------------------------------------
   return (
     <div className={classes.post_block}>
       <PostItem item={dataPost} />

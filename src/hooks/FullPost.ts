@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { TPost, TUser } from "../types/TypesPost";
 import { RootState, useAppDispatch, useAppSelector } from "../redux/store";
 import axios from "../axios";
 import { fetchGetComments } from "../redux/slices/Comments";
 import { TComment } from "../types/TypesComment";
+import { TPost } from "../types/TypesPost";
+import { TUser } from "../types/TypesAuth";
 
 interface ReturnType {
   isVerif: boolean | null;
@@ -25,7 +26,7 @@ export function useGetFullPost(id: string | undefined): ReturnType {
   const { items: itemsComments } = useAppSelector(
     (state: RootState) => state.comment.allComment
   );
-  console.log(countComment);
+
   useEffect(() => {
     axios
       .get<TPost>(`/api/post/getone/${id}`)

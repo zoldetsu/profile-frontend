@@ -1,4 +1,4 @@
-import { TUser } from "./TypesPost";
+import { TUser } from "./TypesAuth";
 
 export type TComment = {
   id: string;
