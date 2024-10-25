@@ -1,0 +1,23 @@
+.loader {
+    position: fixed;
+    right: 47%;
+    top: 45%;
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 5px dashed rgb(128, 128, 128);
+    animation: rotate 2.5s infinite linear;
+
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+
+}

@@ -4,6 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { postsReducer } from "./slices/Posts";
 import { commentReducer } from "./slices/Comments";
 import { likesReducer } from "./slices/Likes";
+import { followReducer } from "./slices/Follow";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     posts: postsReducer,
     comment: commentReducer,
     like: likesReducer,
+    follow: followReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

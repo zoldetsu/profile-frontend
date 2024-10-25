@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../redux/store";
 import { fetchLogin } from "../../../redux/slices/Auth";
 import { useNavigate } from "react-router-dom";
 import { TUser } from "../../../types/TypesAuth";
+import TextFieldUI from "../../../UI/TextFieldUI";
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -27,51 +28,26 @@ export default function Login() {
     //* берем токен и записываем в localStorage
     if (data.payload) {
       window.localStorage.setItem("token", data.payload.token);
-      navigate("/home");
+      navigate("/");
     }
   };
   //* --------------------------------------------------------------------
   return (
     <div className={classes.register_block}>
-      <TextField
-        slotProps={{
-          inputLabel: {
-            style: { color: "white" },
-          },
-          input: {
-            style: {
-              border: "1px solid white",
-            },
-          },
-        }}
-        className={classes.text_field}
-        id="standard-textarea"
-        label="Email"
+      <TextFieldUI
+        id={"standard-textarea"}
+        label={"Email"}
         variant="filled"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
+        value={email}
+        onChange={setEmail}
       />
-      <TextField
-        slotProps={{
-          inputLabel: {
-            style: {
-              color: "white",
-            },
-          },
-          input: {
-            style: {
-              border: "1px solid white",
-            },
-          },
-        }}
-        className={classes.text_field}
-        id="standard-textarea"
-        label="Password"
+
+      <TextFieldUI
+        id={"standard-textarea"}
+        label={"Password"}
         variant="filled"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
+        value={password}
+        onChange={setPassword}
       />
 
       <Button

@@ -1,21 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@mui/material";
 import "../../App.css";
 import classes from "./Auth.module.scss";
 import Register from "./Register";
 import Login from "./Login";
-import { useSelector } from "react-redux";
-import { selectIsAuth } from "../../redux/slices/Auth";
 export default function Аuthentication() {
   const [buttons, setButtons] = useState("register");
-  const isAuth = useSelector(selectIsAuth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/home");
-    }
-  }, [isAuth]);
+  const location = useLocation();
+  const fromPage = location.state?.from?.pathname || "/";
+
   return (
     <div className="container">
       <div className={classes.container_auth}>
@@ -38,6 +32,7 @@ export default function Аuthentication() {
         {buttons === "login" && <Login />}
         {buttons === "register" && <Register />}
       </div>
+      {fromPage}
     </div>
   );
 }

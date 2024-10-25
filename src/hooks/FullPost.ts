@@ -7,8 +7,6 @@ import { TPost } from "../types/TypesPost";
 import { TUser } from "../types/TypesAuth";
 
 interface ReturnType {
-  isVerif: boolean | null;
-  formattedDate: string;
   dataPost: TPost | null;
   itemsComments: TComment[];
   dataUser: TUser | null;
@@ -41,15 +39,7 @@ export function useGetFullPost(id: string | undefined): ReturnType {
     }
   }, [id]);
 
-  const isVerif = dataPost && dataUser && dataPost.userId === dataUser.id;
-
-  const formattedDate = dataPost
-    ? new Date(dataPost.createdAt).toLocaleString()
-    : "";
-
   return {
-    isVerif: isVerif || null,
-    formattedDate,
     dataPost,
     itemsComments: itemsComments,
     dataUser,

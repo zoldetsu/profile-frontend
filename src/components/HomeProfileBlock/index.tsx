@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { RootState, useAppSelector } from "../../redux/store";
-import classes from "./Profile.module.scss";
+import classes from "./HomeProfileBlock.module.scss";
 
-export default function Profile() {
+export default function HomeProfileBlock() {
   const { data } = useAppSelector((state: RootState) => state.auth);
 
   return (
@@ -25,6 +25,7 @@ export default function Profile() {
           {data && data.fullName}
         </Link>
       </h1>
+      <div>{data && data.description}</div>
     </div>
   );
 }

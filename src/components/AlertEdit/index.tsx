@@ -1,10 +1,11 @@
-import { Button, FilledInput, Input, TextField } from "@mui/material";
-import classes from "./AlertEdit.module.scss";
-import { Close, ExitToApp } from "@mui/icons-material";
 import { useRef, useState } from "react";
 import axios from "../../axios.ts";
-import { useNavigate, useParams } from "react-router-dom";
+import classes from "./AlertEdit.module.scss";
+import { Button } from "@mui/material";
+import { Close } from "@mui/icons-material";
 import { TUser } from "../../types/TypesAuth.ts";
+import TextFieldUI from "../../UI/TextFieldUI/index.tsx";
+import { useNavigate, useParams } from "react-router-dom";
 interface IAlert {
   onClick: (arg: boolean) => void;
   user: TUser;
@@ -63,6 +64,7 @@ export default function AlertEdit({ onClick, user }: IAlert) {
       axios.put(`/api/user/update/${id}`, fields).then((res) => {
         navigate(`/users/${id}`);
       });
+      onClick(false);
     } catch (err) {
       console.error(err);
     }
@@ -74,78 +76,37 @@ export default function AlertEdit({ onClick, user }: IAlert) {
       <div className={classes.edit_block}>
         <Close className={classes.close} onClick={onClickExit} />
         <div>изменение профиля</div>
-        <TextField
-          className={classes.text_field}
-          slotProps={{
-            inputLabel: {
-              style: { color: "white" },
-            },
-            input: {
-              style: {
-                border: "1px solid white",
-              },
-            },
-          }}
-          id="standard-textarea"
-          label="имя"
+
+        <TextFieldUI
+          id={"standard-textarea"}
+          label={"имя"}
           variant="filled"
           value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          onChange={setFullName}
         />
         <input type="file" ref={inputFileRef} onChange={handleChangeFile} />
-        <TextField
-          className={classes.text_field}
-          slotProps={{
-            inputLabel: {
-              style: { color: "white" },
-            },
-            input: {
-              style: {
-                border: "1px solid white",
-              },
-            },
-          }}
-          id="standard-textarea"
-          label="Дата Рождения"
+        <TextFieldUI
+          id={"standard-textarea"}
+          label={"Дата Рождения"}
           variant="filled"
-          value="20.20.2000"
+          value={"20.20.2000"}
+          onChange={() => {}}
         />
-        <TextField
-          className={classes.text_field}
-          slotProps={{
-            inputLabel: {
-              style: { color: "white" },
-            },
-            input: {
-              style: {
-                border: "1px solid white",
-              },
-            },
-          }}
-          id="standard-textarea"
-          label="обо мне"
+        <TextFieldUI
+          id={"standard-textarea"}
+          label={"обо мне"}
           variant="filled"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={setDescription}
         />
-        <TextField
-          className={classes.text_field}
-          slotProps={{
-            inputLabel: {
-              style: { color: "white" },
-            },
-            input: {
-              style: {
-                border: "1px solid white",
-              },
-            },
-          }}
-          id="standard-textarea"
-          label="Местоположение"
+        <TextFieldUI
+          id={"standard-textarea"}
+          label={"Местоположение"}
           variant="filled"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={setLocation}
         />
+
         <Button onClick={onSubmit}>Обновить профиль</Button>
       </div>
     </div>

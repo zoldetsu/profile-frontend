@@ -1,11 +1,11 @@
 import { Button, TextField } from "@mui/material";
 import classes from "./Register.module.scss";
-import { grey } from "@mui/material/colors";
 import { useAppDispatch } from "../../../redux/store";
 import { useState } from "react";
 import { fetchRegister } from "../../../redux/slices/Auth";
 import { useNavigate } from "react-router-dom";
 import { TUser } from "../../../types/TypesAuth";
+import TextFieldUI from "../../../UI/TextFieldUI";
 
 export default function Register() {
   const dispatch = useAppDispatch();
@@ -31,80 +31,33 @@ export default function Register() {
     //* берем токен и записываем в localStorage
     if ("token" in data.payload) {
       window.localStorage.setItem("token", data.payload.token);
-      navigate("/home");
+      navigate("/");
     }
   };
 
   return (
     <div className={classes.register_block}>
-      <TextField
-        slotProps={{
-          inputLabel: {
-            style: { color: "white" },
-          },
-          input: {
-            style: {
-              border: "1px solid white",
-            },
-          },
-        }}
-        className={classes.text_field}
-        id="standard-textarea"
-        label="Имя"
+      <TextFieldUI
+        id={"standard-textarea"}
+        label={"Имя"}
         variant="filled"
-        color="primary"
         value={fullName}
-        onChange={(e) => {
-          setFullName(e.target.value);
-        }}
-        sx={{
-          borderColor: grey[200],
-        }}
+        onChange={setFullName}
       />
-
-      <TextField
-        slotProps={{
-          inputLabel: {
-            style: { color: "white" },
-          },
-          input: {
-            style: {
-              border: "1px solid white",
-            },
-          },
-        }}
-        className={classes.text_field}
-        id="standard-textarea"
-        label="Email"
+      <TextFieldUI
+        id={"standard-textarea"}
+        label={"Email"}
         variant="filled"
         value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
+        onChange={setEmail}
       />
-      <TextField
-        slotProps={{
-          inputLabel: {
-            style: {
-              color: "white",
-            },
-          },
-          input: {
-            style: {
-              border: "1px solid white",
-            },
-          },
-        }}
-        className={classes.text_field}
-        id="standard-textarea"
-        label="Password"
+      <TextFieldUI
+        id={"standard-textarea"}
+        label={"Password"}
         variant="filled"
         value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
+        onChange={setPassword}
       />
-
       <Button
         disabled={fullName === ""}
         className={classes.button}

@@ -8,6 +8,7 @@ import { TPost } from "../../types/TypesPost";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useLikes } from "../../hooks/useLikes";
+import { useGetFullPost } from "../../hooks/FullPost";
 
 interface PostItemProps {
   item: TPost;
@@ -18,6 +19,7 @@ export default function PostItem({ item }: PostItemProps) {
   const { data: currentUser } = useAppSelector(
     (state: RootState) => state.auth
   );
+  const { countComment } = useGetFullPost(item.id);
   const date = new Date(item.createdAt);
   const formattedDate = date.toLocaleString();
   //* проверка для удаления комментария авторизованным пользователем
@@ -38,12 +40,7 @@ export default function PostItem({ item }: PostItemProps) {
     <div className={classes.post_box}>
       {isVerif && (
         <IconButton className={classes.delete} onClick={deleteClickPost}>
-          <Delete
-            style={{}}
-            sx={{
-              color: grey[50],
-            }}
-          />
+          <Delete sx={{ color: grey[50] }} />
         </IconButton>
       )}
       <div className={classes.owner_block}>
@@ -61,16 +58,8 @@ export default function PostItem({ item }: PostItemProps) {
       </div>
       <div className={classes.text}>{item.text}</div>
       <div className={classes.activity_block}>
-        <div style={{ display: "flex", marginLeft: "10px" }}>
-          <div
-            style={{
-              marginRight: "5px",
-              fontFamily: "monospace",
-              fontSize: "20px",
-            }}
-          >
-            {countLike}
-          </div>
+        <div className={classes.activity_box}>
+          <div className={classes.count}>{countLike}</div>
           <div onClick={clickLike}>
             <FavoriteIcon
               sx={{
@@ -79,16 +68,8 @@ export default function PostItem({ item }: PostItemProps) {
             />
           </div>
         </div>
-        <div style={{ display: "flex", marginLeft: "10px" }}>
-          <div
-            style={{
-              marginRight: "5px",
-              fontFamily: "monospace",
-              fontSize: "20px",
-            }}
-          >
-            {item.createdComment.length}
-          </div>
+        <div className={classes.activity_box}>
+          <div className={classes.count}>{item.createdComment.length}</div>
           <Link to={`/posts/${item.id}`}>
             <Comment color="inherit" />
           </Link>

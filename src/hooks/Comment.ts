@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { TPost } from "../types/TypesPost";
 import { RootState, useAppSelector } from "../redux/store";
-import axios from "../axios";
+
 import { TComment } from "../types/TypesComment";
 
 interface ReturnType {

@@ -13,10 +13,12 @@ export default function Posts() {
   const [text, setText] = useState("");
   const { items } = useAppSelector((state: RootState) => state.posts.allPosts);
   useEffect(() => {
+    console.log("рендер 1");
     dispatch(fetchPosts());
   }, []);
 
   const AddPostClick = async () => {
+    console.log("рендер 2");
     const arrText = {
       text,
     };

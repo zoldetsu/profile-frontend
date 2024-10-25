@@ -47,5 +47,16 @@
         margin-top: 15px;
         display: flex;
 
+        .activity_box{
+            display: flex;
+            margin-left: 10px;
+
+            .count{
+                margin-right: 5px;
+                font-family: monospace;
+                font-size: 20px;
+            }
+        }
+
     }
 }

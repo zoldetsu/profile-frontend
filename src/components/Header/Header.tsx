@@ -28,7 +28,7 @@ export default function Header() {
     <header className="container">
       <div className={classes.header}>
         <div className={classes.inner_header}>
-          <Link className={classes.logo} to={"/home"}>
+          <Link className={classes.logo} to={"/"}>
             Zolly
           </Link>
           <nav>

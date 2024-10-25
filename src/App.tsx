@@ -1,28 +1,75 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.css";
-import Header from "./components/Header/Header";
 import Аuthentication from "./pages/Аuthentication";
 import Home from "./pages/Home";
 import PostPage from "./pages/PostPage";
 import PageProfile from "./pages/PageProfile";
 import { fetchAuthMe } from "./redux/slices/Auth";
-import { useAppDispatch } from "./redux/store";
-
+import { useAppDispatch, useAppSelector } from "./redux/store";
+import PageFollowing from "./pages/PageFollowing";
+import PageFollowers from "./pages/PageFollowers";
+import Loader from "./UI/Loader";
+import Layout from "./components/Layout";
+import { RequireAuth } from "./hoc/RequireAuth";
 function App() {
   const dispatch = useAppDispatch();
+  const status = useAppSelector((state) => state.auth.status);
+
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, [dispatch]);
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
   return (
     <>
-      <Header />
       <Routes>
-        <Route path="/" element={<Аuthentication />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/posts/:id" element={<PostPage />} />
-        <Route path="/auth" element={<Аuthentication />} />
-        <Route path="/users/:id" element={<PageProfile />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="auth" element={<Аuthentication />} />
+          <Route
+            index
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="posts/:id"
+            element={
+              <RequireAuth>
+                <PostPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="users/:id"
+            element={
+              <RequireAuth>
+                <PageProfile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="following"
+            element={
+              <RequireAuth>
+                <PageFollowing />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="followers"
+            element={
+              <RequireAuth>
+                <PageFollowers />
+              </RequireAuth>
+            }
+          />
+        </Route>
       </Routes>
     </>
   );

@@ -28,6 +28,7 @@ export default function FullPost() {
       text,
     };
     dispatch(fetchAddComment(commentInfo));
+    setText("");
   };
   //* --------------------------------------------------------------------
   return (
