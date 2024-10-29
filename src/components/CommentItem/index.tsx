@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import classes from "./CommentItem.module.scss";
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useGetComment } from "../../hooks/Comment";
 import { Delete } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
@@ -14,6 +14,7 @@ interface Icomment {
 export default function CommentItem({ comment }: Icomment) {
   const dispatch = useAppDispatch();
   const { isVerif, formattedDate } = useGetComment(comment);
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   const deleteClick = async () => {
     if (comment) {
       dispatch(fetchDeleteComment(comment.id));
@@ -26,13 +27,13 @@ export default function CommentItem({ comment }: Icomment) {
 
   return (
     <div>
-      <div className={classes.block}>
+      <div className={`${classes.block}  ${classes[theme]}`}>
         {isVerif && (
           <IconButton className={classes.delete} onClick={deleteClick}>
             <Delete
               style={{}}
               sx={{
-                color: grey[50],
+                color: theme === "light" ? grey[900] : grey[100],
               }}
             />
           </IconButton>

@@ -59,10 +59,15 @@ export default function Register() {
         onChange={setPassword}
       />
       <Button
-        disabled={fullName === ""}
+        disabled={(fullName && password && email) === ""}
         className={classes.button}
         onClick={SendClick}
         variant="contained"
+        sx={{
+          ":disabled": {
+            color: "white",
+          },
+        }}
       >
         Зарегистрироваться
       </Button>

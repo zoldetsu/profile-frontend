@@ -5,11 +5,14 @@ import axios from "../../axios";
 import { TUser } from "../../types/TypesAuth";
 import { Link } from "react-router-dom";
 import Skeleton from "./skeleton";
+import { useAppSelector } from "../../redux/store";
 
 interface IFollowing {
   following: string;
 }
+
 export default function FollowItem({ following }: IFollowing) {
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   const [user, setUser] = useState<TUser>();
   useEffect(() => {
     axios
@@ -25,7 +28,7 @@ export default function FollowItem({ following }: IFollowing) {
       {!user ? (
         <Skeleton />
       ) : (
-        <div className={classes.block}>
+        <div className={`${classes.block} ${classes[theme]}`}>
           <div className={classes.img_block}>
             <Link to={`/users/${following}`}>
               <img

@@ -3,7 +3,11 @@ import classes from "./Buttons.module.scss";
 import { Groups, PeopleAlt, PostAddSharp } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { grey } from "@mui/material/colors";
-export default function Buttons() {
+import { memo } from "react";
+import { useAppSelector } from "../../redux/store";
+export default memo(function Buttons() {
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
+  console.log("render button");
   return (
     <div className={classes.buttons_box}>
       <Link to="/">
@@ -12,10 +16,10 @@ export default function Buttons() {
             justifyContent: "flex-start",
             borderRadius: "7px",
             width: "100%",
-            color: "white",
+            color: theme === "light" ? "black" : "white",
             fontSize: "15px",
             "&:hover": {
-              bgcolor: grey[800],
+              bgcolor: theme === "light" ? grey[200] : grey[800],
             },
           }}
           startIcon={<PostAddSharp />}
@@ -31,11 +35,11 @@ export default function Buttons() {
             justifyContent: "flex-start",
             borderRadius: "7px",
             width: "100%",
-            color: "white",
+            color: theme === "light" ? "black" : "white",
             fontSize: "15px",
             marginTop: "5px",
             "&:hover": {
-              bgcolor: grey[800],
+              bgcolor: theme === "light" ? grey[200] : grey[800],
             },
           }}
           startIcon={<PeopleAlt />}
@@ -51,11 +55,11 @@ export default function Buttons() {
             justifyContent: "flex-start",
             borderRadius: "7px",
             width: "100%",
-            color: "white",
+            color: theme === "light" ? "black" : "white",
             fontSize: "15px",
             marginTop: "5px",
             "&:hover": {
-              bgcolor: grey[800],
+              bgcolor: theme === "light" ? grey[200] : grey[800],
             },
           }}
           startIcon={<Groups />}
@@ -67,4 +71,4 @@ export default function Buttons() {
       </Link>
     </div>
   );
-}
+});

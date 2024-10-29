@@ -1,3 +1,5 @@
+
+
 .skeleton {
     display: flex;
     flex-direction: column;
@@ -6,17 +8,35 @@
     height: 200px;
     padding: 10px;
     border-radius: 10px;
-    background: linear-gradient(90deg, #535353 25%, #5e5e5e 50%, #535353 75%);
-    animation: loading 1.5s infinite;
-    background-size: 200% 100%;
+    
+    
+
+    &.light{
+        background: linear-gradient(90deg, #d6d6d6 25%, #cacaca 50%, #d3d3d3 75%);
+        animation: loading 1.5s infinite;
+        background-size: 200% 100%;
+    }
+
+    &.dark{
+        background: linear-gradient(90deg, #535353 25%, #5e5e5e 50%, #535353 75%);
+        animation: loading 1.5s infinite;
+        background-size: 200% 100%;
+    }
     .skeleton_avatar {
         width: 120px;
         height: 150px;
         background: #3a3a3a;
-        background-size: 200% 100%;
-        animation: loading 1.5s infinite;
         border-radius: 10px;
         margin-bottom: 10px;
+
+
+        &.light{
+            background: #b9b9b9;
+        }
+    
+        &.dark{
+            background: #3a3a3a;
+        }
     }
     
     .skeleton_title {
@@ -27,6 +47,15 @@
         background-size: 200% 100%;
         animation: loading 1.5s infinite;
         margin-bottom: 8px;
+
+
+        &.light{
+            background: #b9b9b9;
+        }
+    
+        &.dark{
+            background: #3a3a3a;
+        }
     }
     
     .skeleton_email {

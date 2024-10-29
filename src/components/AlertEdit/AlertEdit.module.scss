@@ -25,6 +25,17 @@
     transform: translate(-50%, -50%);
     z-index: 1001;
 
+
+    &.light{
+        background-color: white;
+
+        color: black
+    }
+
+    &.dark{
+        background-color: rgb(41, 41, 41);
+    }
+
     .close{
         position: fixed;
         top: 5px;
@@ -33,7 +44,10 @@
         
     }
 
-
+    .text{
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 15px;
+    }
     .text_field{
     margin-top: 15px;
     border-color: rgb(107, 38, 38);

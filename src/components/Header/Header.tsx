@@ -9,8 +9,14 @@ import { IconButton } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../redux/store";
 import { logout, selectIsAuth } from "../../redux/slices/Auth";
+import { Dispatch } from "react";
 
-export default function Header() {
+interface IHeader {
+  theme: string;
+  switcTheme: () => void;
+}
+
+export default function Header({ theme, switcTheme }: IHeader) {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
   const navigate = useNavigate();
@@ -26,14 +32,16 @@ export default function Header() {
   //* --------------------------------------------------------------------
   return (
     <header className="container">
-      <div className={classes.header}>
+      <div className={`${classes.header} ${classes[theme]}`}>
         <div className={classes.inner_header}>
-          <Link className={classes.logo} to={"/"}>
+          <Link className={`${classes.logo} ${classes[theme]}`} to={"/"}>
             Zolly
           </Link>
           <nav>
-            <IconButton>
-              <DarkModeIcon sx={{ color: yellow[400] }} />
+            <IconButton onClick={switcTheme}>
+              <DarkModeIcon
+                sx={{ color: theme === "dark" ? yellow[400] : grey[800] }}
+              />
             </IconButton>
             <Button
               size="small"

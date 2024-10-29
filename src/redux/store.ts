@@ -5,6 +5,7 @@ import { postsReducer } from "./slices/Posts";
 import { commentReducer } from "./slices/Comments";
 import { likesReducer } from "./slices/Likes";
 import { followReducer } from "./slices/Follow";
+import { SwitchThemeReducer } from "./slices/SwitchTheme";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     comment: commentReducer,
     like: likesReducer,
     follow: followReducer,
+    SwitchTheme: SwitchThemeReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

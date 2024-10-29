@@ -51,6 +51,7 @@ export default function Login() {
       />
 
       <Button
+        disabled={(password && email) === ""}
         className={classes.button}
         onClick={SendClick}
         variant="contained"

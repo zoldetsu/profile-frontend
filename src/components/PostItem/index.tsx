@@ -8,7 +8,6 @@ import { TPost } from "../../types/TypesPost";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useLikes } from "../../hooks/useLikes";
-import { useGetFullPost } from "../../hooks/FullPost";
 
 interface PostItemProps {
   item: TPost;
@@ -16,10 +15,10 @@ interface PostItemProps {
 }
 
 export default function PostItem({ item }: PostItemProps) {
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   const { data: currentUser } = useAppSelector(
     (state: RootState) => state.auth
   );
-  const { countComment } = useGetFullPost(item.id);
   const date = new Date(item.createdAt);
   const formattedDate = date.toLocaleString();
   //* проверка для удаления комментария авторизованным пользователем
@@ -37,10 +36,10 @@ export default function PostItem({ item }: PostItemProps) {
     currentUser
   );
   return (
-    <div className={classes.post_box}>
+    <div className={`${classes.post_box}  ${classes[theme]}`}>
       {isVerif && (
         <IconButton className={classes.delete} onClick={deleteClickPost}>
-          <Delete sx={{ color: grey[50] }} />
+          <Delete sx={{ color: theme === "light" ? grey[900] : grey[100] }} />
         </IconButton>
       )}
       <div className={classes.owner_block}>
@@ -59,19 +58,32 @@ export default function PostItem({ item }: PostItemProps) {
       <div className={classes.text}>{item.text}</div>
       <div className={classes.activity_block}>
         <div className={classes.activity_box}>
-          <div className={classes.count}>{countLike}</div>
+          <div className={classes.count_like}>{countLike}</div>
           <div onClick={clickLike}>
             <FavoriteIcon
               sx={{
-                color: like ? red[500] : grey[100],
+                color: like
+                  ? red[500]
+                  : theme === "light"
+                  ? grey[900]
+                  : grey[100],
+                width: 20,
               }}
             />
           </div>
         </div>
         <div className={classes.activity_box}>
-          <div className={classes.count}>{item.createdComment.length}</div>
+          <div className={classes.count_comment}>
+            {item.createdComment.length}
+          </div>
           <Link to={`/posts/${item.id}`}>
-            <Comment color="inherit" />
+            <Comment
+              sx={{
+                width: 20,
+                color: theme === "light" ? grey[900] : grey[100],
+              }}
+              color="inherit"
+            />
           </Link>
         </div>
       </div>

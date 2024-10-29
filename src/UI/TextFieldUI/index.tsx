@@ -8,6 +8,7 @@ interface ITextFieldUI {
   variant: TextFieldVariants;
   value: string;
   onChange: Function;
+  theme?: string;
 }
 export default function TextFieldUI({
   id,
@@ -15,18 +16,20 @@ export default function TextFieldUI({
   variant,
   value,
   onChange,
+  theme,
 }: ITextFieldUI) {
   return (
     <div style={{ marginTop: "15px" }}>
       <TextField
-        className={classes.text_field}
+        className={`${classes.text_field}`}
         slotProps={{
           inputLabel: {
-            style: { color: "white" },
+            style: { color: theme === "light" ? "black" : "white" },
           },
           input: {
             style: {
               border: "1px solid white",
+              color: theme === "light" ? "black" : "white",
             },
           },
         }}

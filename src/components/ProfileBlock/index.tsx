@@ -18,6 +18,7 @@ export default function ProfileBlock({ user }: returnType) {
   const dispatch = useAppDispatch();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { data } = useAppSelector((state) => state.auth);
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   //* --------------------------------------------------------------------
 
   // ? массив объектов подписок, где follwerId совпадает с id открытого
@@ -80,15 +81,17 @@ export default function ProfileBlock({ user }: returnType) {
       {isEditing && <AlertEdit onClick={onClickEdit} user={user} />}
 
       <div className={classes.profile_block}>
-        <div className={classes.one_block}>
-          <div className={classes.img_block}>
+        <div className={`${classes.one_block} ${classes[theme]}`}>
+          <div className={`${classes.img_block} `}>
             <img
               //* полный url http://localhost:4000/uploads/name.jpg
               src={user.avatarUrl && `http://localhost:4000${user.avatarUrl}`}
               alt={user.fullName}
             />
           </div>
-          <div className={classes.fullName}>{user.fullName}</div>
+          <div className={`${classes.fullName} ${classes[theme]}`}>
+            {user.fullName}
+          </div>
 
           {isVerifEdit ? (
             <Button
@@ -113,25 +116,28 @@ export default function ProfileBlock({ user }: returnType) {
             </Button>
           )}
         </div>
-        <div className={classes.second_block}>
+        <div className={`${classes.second_block} ${classes[theme]}`}>
           {user.email && (
             <h3 className={classes.point}>
-              Почта: <span>{user.email}</span>
+              Почта: <span className={classes[theme]}>{user.email}</span>
             </h3>
           )}
           {user.createdAt && (
             <h3 className={classes.point}>
-              Дата регистрации: <span>{user.createdAt}</span>
+              Дата регистрации:{" "}
+              <span className={classes[theme]}>{user.createdAt}</span>
             </h3>
           )}
           {user.location && (
             <h3 className={classes.point}>
-              Местонахождение: <span>{user.location}</span>
+              Местонахождение:{" "}
+              <span className={classes[theme]}>{user.location}</span>
             </h3>
           )}
           {user.description && (
             <h3 className={classes.point}>
-              Обо мне: <span>{user.description}</span>
+              Обо мне:{" "}
+              <span className={classes[theme]}>{user.description}</span>
             </h3>
           )}
 

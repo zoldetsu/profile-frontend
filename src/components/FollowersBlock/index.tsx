@@ -26,7 +26,10 @@ export default function FollowersBlock() {
       ) : (
         items &&
         items.map((following: TFollows) => (
-          <FollowItem following={following.followerId} />
+          <FollowItem
+            key={following.followerId}
+            following={following.followerId}
+          />
         ))
       )}
     </div>

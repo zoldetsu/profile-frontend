@@ -12,18 +12,24 @@ export default function Posts() {
   const dispatch = useAppDispatch();
   const [text, setText] = useState("");
   const { items } = useAppSelector((state: RootState) => state.posts.allPosts);
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
+
   useEffect(() => {
-    console.log("рендер 1");
+    console.log("render");
+
     dispatch(fetchPosts());
   }, []);
 
   const AddPostClick = async () => {
-    console.log("рендер 2");
-    const arrText = {
-      text,
-    };
-    await dispatch(fetchAddPost(arrText));
-    setText("");
+    if (text.length !== 0) {
+      const arrText = {
+        text,
+      };
+      await dispatch(fetchAddPost(arrText));
+      setText("");
+    } else {
+      alert("пост не может быть пустым");
+    }
   };
 
   return (
@@ -35,9 +41,10 @@ export default function Posts() {
           input: {
             style: {
               marginBottom: "10px",
-              background: "#202020 ",
-              color: "white",
+              background: theme === "dark" ? "#202020 " : "white",
+              color: theme === "dark" ? "white" : "black",
               borderRadius: "15px",
+              boxShadow: "0px 5px 10px rgba(15, 15, 15, 0.418)",
             },
           },
         }}

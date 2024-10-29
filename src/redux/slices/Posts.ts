@@ -28,7 +28,7 @@ export const fetchPosts = createAsyncThunk<TPost[]>(
   "posts/fetchPosts",
   async () => {
     try {
-      const { data } = await axios.get("/api/post/getposts");
+      const { data } = await axios.get(`/api/post/getposts`);
       return data;
     } catch (error) {
       return console.log(error);
@@ -75,8 +75,8 @@ const PostsSlice = createSlice({
       state.allPosts.status = "loaded";
     });
 
-    builder.addCase(fetchPosts.rejected, (state) => {
-      state.allPosts.items = [];
+    builder.addCase(fetchPosts.rejected, (state, action) => {
+      state.allPosts.items.push(action.payload);
       state.allPosts.status = "loading";
     });
 

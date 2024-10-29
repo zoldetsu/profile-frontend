@@ -6,6 +6,7 @@ import { Close } from "@mui/icons-material";
 import { TUser } from "../../types/TypesAuth.ts";
 import TextFieldUI from "../../UI/TextFieldUI/index.tsx";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAppSelector } from "../../redux/store.ts";
 interface IAlert {
   onClick: (arg: boolean) => void;
   user: TUser;
@@ -14,6 +15,7 @@ interface IAlert {
 export default function AlertEdit({ onClick, user }: IAlert) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   //* --------------------------------------------------------------------
   //* принимают начальное состояние о пользователе
   const [fullName, setFullName] = useState(user.fullName);
@@ -73,9 +75,9 @@ export default function AlertEdit({ onClick, user }: IAlert) {
   return (
     <div>
       <div onClick={onClickExit} className={classes.out_block}></div>
-      <div className={classes.edit_block}>
+      <div className={`${classes.edit_block} ${classes[theme]}`}>
         <Close className={classes.close} onClick={onClickExit} />
-        <div>изменение профиля</div>
+        <div className={classes.text}>Изменение профиля</div>
 
         <TextFieldUI
           id={"standard-textarea"}
@@ -83,6 +85,7 @@ export default function AlertEdit({ onClick, user }: IAlert) {
           variant="filled"
           value={fullName}
           onChange={setFullName}
+          theme={theme}
         />
         <input type="file" ref={inputFileRef} onChange={handleChangeFile} />
         <TextFieldUI
@@ -91,6 +94,7 @@ export default function AlertEdit({ onClick, user }: IAlert) {
           variant="filled"
           value={"20.20.2000"}
           onChange={() => {}}
+          theme={theme}
         />
         <TextFieldUI
           id={"standard-textarea"}
@@ -98,6 +102,7 @@ export default function AlertEdit({ onClick, user }: IAlert) {
           variant="filled"
           value={description}
           onChange={setDescription}
+          theme={theme}
         />
         <TextFieldUI
           id={"standard-textarea"}
@@ -105,6 +110,7 @@ export default function AlertEdit({ onClick, user }: IAlert) {
           variant="filled"
           value={location}
           onChange={setLocation}
+          theme={theme}
         />
 
         <Button onClick={onSubmit}>Обновить профиль</Button>

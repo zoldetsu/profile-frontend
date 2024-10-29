@@ -1,15 +1,22 @@
 .header{
-    
-    
+    margin: 0px 15px 0px 15px;
     display: flex;
     justify-content: center;
-    margin: 15px 15px 0px 15px;
-    .inner_header{
+    box-shadow: 0px 5px 10px rgba(15, 15, 15, 0.418);
+    border-radius: 15px;
+
+    &.light{
+        background-color: white;
+        
+    }
+    &.dark{
         background-color: rgba(49, 49, 49, 0.418);
+        
+    }
+    .inner_header{
+
         padding: 5px 10px 5px 10px;
-        border-radius: 15px;
         width: 100%;
-        box-shadow: 0px 5px 10px rgba(15, 15, 15, 0.418);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -25,7 +32,14 @@
     .logo{
         text-decoration: none;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        color: white;
         font-size: 20px;
+
+        &.light{
+            color: black;
+        }
+
+        &.dark{
+            color: white
+        }
     }
 }

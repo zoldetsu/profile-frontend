@@ -1,16 +1,43 @@
-:root {
-  color-scheme: light dark;
-  background-color: #242424;
 
+::-webkit-scrollbar {
+  display: none; /* Скрывает полосы прокрутки для браузеров на основе WebKit (Chrome, Safari) */
 }
 
-body{
+::-moz-scrollbar {
+  display: none; /* Скрывает полосы прокрутки для браузеров на основе Gecko (Firefox) */
+}
+
+::-ms-scrollbar {
+  display: none; /* Скрывает полосы прокрутки для браузеров на основе Trident (Internet Explorer) */
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
 }
 
 
+body{
+  background-color: antiquewhite;
+}
 
+.layout{
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+}
 
+.layout.dark {
+  height: 100%;
+  background-color: #242424;
+}
+
+.layout.light {
+  height: 100%;
+  background-color: white;
+  
+}
