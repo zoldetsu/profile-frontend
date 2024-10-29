@@ -4,8 +4,7 @@ Zolly - индивидуальный проект, где пользовател
 
 ## Технологии:
 
-    - React
-
+- React
 - Redux toolkit
 - JavaScript
 - Node js
@@ -14,5 +13,3 @@ Zolly - индивидуальный проект, где пользовател
 - Prisma |
 - material UI
 - TypeScript
-
-![alt text](image-1.png)
