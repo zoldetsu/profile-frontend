@@ -67,6 +67,7 @@ export default function AlertEdit({ onClick, user }: IAlert) {
         navigate(`/users/${id}`);
       });
       onClick(false);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }

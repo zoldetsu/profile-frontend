@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import classes from "./Login.module.scss";
 
-import { useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchLogin } from "../../../redux/slices/Auth";
 import { useNavigate } from "react-router-dom";
 import { TUser } from "../../../types/TypesAuth";
@@ -11,6 +11,7 @@ import TextFieldUI from "../../../UI/TextFieldUI";
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   //* --------------------------------------------------------------------
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ export default function Login() {
         variant="filled"
         value={email}
         onChange={setEmail}
+        theme={theme}
       />
 
       <TextFieldUI
@@ -48,6 +50,7 @@ export default function Login() {
         variant="filled"
         value={password}
         onChange={setPassword}
+        theme={theme}
       />
 
       <Button

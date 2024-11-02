@@ -46,12 +46,12 @@ export default function FullPost() {
               marginBottom: "10px",
               borderRadius: "15px",
               marginTop: "15px",
-              boxShadow: "0px 5px 10px rgba(15, 15, 15, 0.418)",
+              boxShadow: "0px 1px 3px rgba(15, 15, 15, 0.418)",
             },
           },
         }}
         id="standard-textarea"
-        placeholder="О чем думаете?"
+        placeholder="Добавить комментарий"
         multiline
         fullWidth
         variant="outlined"

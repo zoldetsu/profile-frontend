@@ -19,7 +19,7 @@ export const fetchRegister = createAsyncThunk<TUser, IRegisterParams>(
       const { data } = await axios.post("/api/user/register", params);
       return data;
     } catch (error) {
-      return "Ошибка при регистрации";
+      return null;
     }
   }
 );
@@ -31,18 +31,23 @@ export const fetchLogin = createAsyncThunk<TUser, ILoginParams>(
       const { data } = await axios.post("/api/user/login", params);
       return data;
     } catch (error) {
-      return "Ошибка при входе";
+      return null;
     }
   }
 );
 
-export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
-  try {
-    const { data } = await axios.get("/api/user/me");
+export const fetchAuthMe = createAsyncThunk<TUser>(
+  "auth/fetchAuthMe",
+  async () => {
+    try {
+      const { data } = await axios.get("/api/user/me");
 
-    return data;
-  } catch (error) {}
-});
+      return data;
+    } catch (error) {
+      return null;
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -89,8 +94,8 @@ const authSlice = createSlice({
     });
 
     builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
-      state.status = "loaded";
       state.data = action.payload;
+      state.status = "loaded";
     });
 
     builder.addCase(fetchAuthMe.rejected, (state) => {
@@ -104,7 +109,7 @@ const authSlice = createSlice({
 //   Boolean(state.auth.data);
 // };
 
-export const selectIsAuth = (state: { auth: { data: IRegisterParams } }) =>
+export const selectIsAuth = (state: { auth: { data: TUser | null } }) =>
   Boolean(state.auth.data);
 export const { logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;

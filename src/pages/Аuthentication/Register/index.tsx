@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import classes from "./Register.module.scss";
-import { useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { useState } from "react";
 import { fetchRegister } from "../../../redux/slices/Auth";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import TextFieldUI from "../../../UI/TextFieldUI";
 export default function Register() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { theme } = useAppSelector((state) => state.SwitchTheme);
   //* --------------------------------------------------------------------
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +44,7 @@ export default function Register() {
         variant="filled"
         value={fullName}
         onChange={setFullName}
+        theme={theme}
       />
       <TextFieldUI
         id={"standard-textarea"}
@@ -50,6 +52,7 @@ export default function Register() {
         variant="filled"
         value={email}
         onChange={setEmail}
+        theme={theme}
       />
       <TextFieldUI
         id={"standard-textarea"}
@@ -57,6 +60,7 @@ export default function Register() {
         variant="filled"
         value={password}
         onChange={setPassword}
+        theme={theme}
       />
       <Button
         disabled={(fullName && password && email) === ""}

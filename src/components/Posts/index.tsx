@@ -44,7 +44,7 @@ export default function Posts() {
               background: theme === "dark" ? "#202020 " : "white",
               color: theme === "dark" ? "white" : "black",
               borderRadius: "15px",
-              boxShadow: "0px 5px 10px rgba(15, 15, 15, 0.418)",
+              boxShadow: "0px 1px 3px rgba(15, 15, 15, 0.418)",
             },
           },
         }}

@@ -10,6 +10,23 @@ Zolly - индивидуальный проект, где пользовател
 - Node js
 - express
 - postgreSQL
-- Prisma |
+- Prisma
 - material UI
 - TypeScript
+
+## Скриншоты
+
+![alt text](public/image1.png)
+![alt text](public/image2.png)
+
+#### подписки
+
+![alt text](public/image3.png)
+
+#### страница полного поста
+
+![alt text](public/image4.png)
+
+#### вход и регистрация
+
+![alt text](public/image5.png)
